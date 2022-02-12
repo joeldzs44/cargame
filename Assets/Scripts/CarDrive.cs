@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CarDrive : MonoBehaviour
 {
-
-
  public float speed;
  public float turnSpeed;
+ public float boostSpeed;
+ public float brakingSpeed;
  public float gravityMultiplier;
  private Rigidbody rb;
 
@@ -23,7 +23,8 @@ public class CarDrive : MonoBehaviour
   Accelerate();
   Turn();
   Fall();
-  Brake();
+  Boost();
+  //Brake();
  }
 
  void Accelerate()
@@ -63,12 +64,62 @@ public class CarDrive : MonoBehaviour
   rb.AddForce(Vector3.down * gravityMultiplier * 10);
  }
 
+ void Boost()
+ {
+  // if (Input.GetKey(KeyCode.Space))
+  // {
+  //  rb.velocity = Vector3.zero;
+  //  rb.angularVelocity = Vector3.zero;
+  // }
+  Vector3 zeroVector;
+  zeroVector.x = zeroVector.y = zeroVector.z = 0;
+
+  if (rb.velocity.y > zeroVector.y && Input.GetKey(KeyCode.LeftShift))
+  {
+   Vector3 forceToAdd = -transform.forward;
+   forceToAdd.y = 0;
+   rb.AddForce(forceToAdd * boostSpeed * 10);
+  }
+  else if (rb.velocity.y <= zeroVector.y && Input.GetKey(KeyCode.LeftShift))
+  {
+   Vector3 forceToAdd = transform.forward;
+   forceToAdd.y = 0;
+   rb.AddForce(forceToAdd * boostSpeed * 10);
+  }
+
+  Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+  locVel = new Vector3(0, locVel.y, locVel.z);
+  rb.velocity = new Vector3(transform.TransformDirection(locVel).x, rb.velocity.y, transform.TransformDirection(locVel).z);
+ }
+
  void Brake()
  {
-  if (Input.GetKey(KeyCode.Space))
+  Vector3 zeroVector = Vector3.zero;
+
+  if (rb.velocity.z < zeroVector.z && Input.GetKey(KeyCode.Space))
   {
-   rb.velocity = Vector3.zero;
-   rb.angularVelocity = Vector3.zero;
+   Debug.Log("if condition : " + rb.velocity);
+   Vector3 forceToAdd = transform.forward;
+   forceToAdd.z = 0;
+   rb.AddForce(forceToAdd * brakingSpeed * 10);
+  }
+  else if (rb.velocity.z > zeroVector.z && Input.GetKey(KeyCode.Space))
+  {
+   Debug.Log("if else condition : " + rb.velocity);
+   Vector3 forceToAdd = -transform.forward;
+   forceToAdd.z = 0;
+   rb.AddForce(forceToAdd * brakingSpeed * 10);
+  }
+  Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+  locVel = new Vector3(locVel.x, locVel.y, locVel.z);
+  Debug.Log("locVel : " + rb.velocity);
+  if (locVel.z != 0)
+  {
+   if (locVel.z <= -100)
+   {
+    locVel = zeroVector;
+   }
+   rb.velocity = new Vector3(transform.TransformDirection(locVel).x, rb.velocity.y, transform.TransformDirection(locVel).z);
   }
  }
 }
