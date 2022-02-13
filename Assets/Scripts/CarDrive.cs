@@ -24,7 +24,7 @@ public class CarDrive : MonoBehaviour
   Turn();
   Fall();
   Boost();
-  //Brake();
+  Brake();
  }
 
  void Accelerate()
@@ -92,7 +92,17 @@ public class CarDrive : MonoBehaviour
   rb.velocity = new Vector3(transform.TransformDirection(locVel).x, rb.velocity.y, transform.TransformDirection(locVel).z);
  }
 
- void Brake()
+void Brake(){
+if(Input.GetKey(KeyCode.Space))
+{
+rb.velocity = rb.velocity *0.9f;
+rb.angularVelocity = rb.angularVelocity *0.9f;
+}
+}
+
+
+
+ void fake_Brake()
  {
   Vector3 zeroVector = Vector3.zero;
 
@@ -111,7 +121,9 @@ public class CarDrive : MonoBehaviour
    rb.AddForce(forceToAdd * brakingSpeed * 10);
   }
   Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+  Vector3 anglocVel = transform.InverseTransformDirection(rb.angularVelocity);
   locVel = new Vector3(locVel.x, locVel.y, locVel.z);
+  anglocVel = new Vector3(anglocVel.x, anglocVel.y, anglocVel.z);
   Debug.Log("locVel : " + rb.velocity);
   if (locVel.z != 0)
   {
@@ -120,6 +132,7 @@ public class CarDrive : MonoBehaviour
     locVel = zeroVector;
    }
    rb.velocity = new Vector3(transform.TransformDirection(locVel).x, rb.velocity.y, transform.TransformDirection(locVel).z);
+   rb.angularVelocity = new Vector3(transform.TransformDirection(anglocVel).x, rb.angularVelocity.y, transform.TransformDirection(anglocVel).z);
   }
  }
 }
