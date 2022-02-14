@@ -43,6 +43,7 @@
      <Compile Include="Assets\Scripts\CarDrive.cs" />
      <None Include="Assets\BEDRILL\Modular_Track_Free\Readme.txt" />
      <None Include="Assets\Assets\LowPolyGround\Readme_DownLoad Post ProcessingStack.txt" />
+     <None Include="Assets\Free Stylized Skybox\ReadMe.txt" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Softwares\U3D\2020.3.24f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
