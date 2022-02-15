@@ -41,6 +41,7 @@
      <Compile Include="Assets\Assets\LowPolyGround\TutorialInfo\Scripts\buttonAssetstore.cs" />
      <Compile Include="Assets\Assets\LowPolyGround\Scripts\FreeCamera.cs" />
      <Compile Include="Assets\Scripts\CarDrive.cs" />
+     <Compile Include="Assets\Scripts\CarMovement.cs" />
      <None Include="Assets\BEDRILL\Modular_Track_Free\Readme.txt" />
      <None Include="Assets\Assets\LowPolyGround\Readme_DownLoad Post ProcessingStack.txt" />
      <None Include="Assets\Free Stylized Skybox\ReadMe.txt" />
